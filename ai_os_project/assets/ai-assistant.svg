@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07090e"/>
+      <stop offset="100%" stop-color="#0f131c"/>
+    </linearGradient>
+
+    <linearGradient id="headMetal2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b4354"/>
+      <stop offset="50%" stop-color="#1f2432"/>
+      <stop offset="100%" stop-color="#0d1017"/>
+    </linearGradient>
+
+    <radialGradient id="cyanGlow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+    </radialGradient>
+
+    <style>
+      .mono { font-family: 'JetBrains Mono', monospace; }
+      .sans { font-family: 'Space Grotesk', sans-serif; }
+
+      @keyframes pulseGlow {
+        0%, 100% { opacity: 0.4; transform: scale(1); }
+        50% { opacity: 0.8; transform: scale(1.05); }
+      }
+      @keyframes scanLine {
+        0% { transform: translateY(-30px); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: translateY(30px); opacity: 0; }
+      }
+      @keyframes eyeGlow {
+        0%, 100% { fill: #00d4ff; }
+        50% { fill: #38bdf8; }
+      }
+      @keyframes orbitRot {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .animated-glow { animation: pulseGlow 4s infinite ease-in-out; transform-origin: 425px 230px; }
+      .animated-scan { animation: scanLine 3s infinite linear; }
+      .animated-eye { animation: eyeGlow 2s infinite ease-in-out; }
+      .animated-orbit { animation: orbitRot 12s infinite linear; transform-origin: 425px 210px; }
+    </style>
+  </defs>
+
+  <!-- Background Container -->
+  <rect width="850" height="480" rx="14" fill="url(#bgGrad2)" stroke="#1d2333" stroke-width="1.5"/>
+
+  <!-- Ambient Backdrop Glow -->
+  <circle cx="425" cy="210" r="180" fill="url(#cyanGlow2)" class="animated-glow"/>
+
+  <!-- Orbital HUD Ring -->
+  <g class="animated-orbit">
+    <circle cx="425" cy="210" r="150" fill="none" stroke="rgba(0, 212, 255, 0.2)" stroke-width="1.2" stroke-dasharray="12 8 4 8"/>
+    <circle cx="275" cy="210" r="3" fill="#00d4ff"/>
+    <circle cx="575" cy="210" r="3" fill="#7c3aed"/>
+    <circle cx="425" cy="60" r="3" fill="#10b981"/>
+  </g>
+
+  <!-- Top Telemetry Header -->
+  <g transform="translate(30, 40)">
+    <text x="0" y="0" class="mono" font-size="11" font-weight="700" fill="#00d4ff" letter-spacing="2">SYSTEM AGENT // LIVE VISUAL TELEMETRY</text>
+    <rect x="0" y="10" width="790" height="1" fill="#1a202c"/>
+  </g>
+
+  <!-- ROBOT AI ASSISTANT HEAD (Center 425, 210) -->
+  <g transform="translate(425, 210)">
+
+    <!-- Neck Interface -->
+    <path d="M-30 95 L30 95 L40 140 L-40 140 Z" fill="#141824" stroke="#2d364a" stroke-width="1.5"/>
+    <rect x="-24" y="105" width="48" height="4" rx="2" fill="#00d4ff" opacity="0.7"/>
+
+    <!-- Head Chassis -->
+    <path d="M-75 -45 C-75 -115, 75 -115, 75 -45 C75 25, 55 90, 0 102 C-55 90, -75 25, -75 -45 Z" 
+          fill="url(#headMetal2)" 
+          stroke="#475569" 
+          stroke-width="2"/>
+
+    <!-- Cranial Contour Panels -->
+    <path d="M-68 -35 C-68 -90, -25 -102, 0 -102" fill="none" stroke="#64748b" stroke-width="1.5" opacity="0.6"/>
+    <path d="M68 -35 C68 -90, 25 -102, 0 -102" fill="none" stroke="#64748b" stroke-width="1.5" opacity="0.6"/>
+
+    <!-- Temple Nodes -->
+    <circle cx="-72" cy="-28" r="6" fill="#0f121a" stroke="#00d4ff" stroke-width="1.5"/>
+    <circle cx="72" cy="-28" r="6" fill="#0f121a" stroke="#00d4ff" stroke-width="1.5"/>
+
+    <!-- Visor Plate -->
+    <path d="M-60 -38 C-60 -60, 60 -60, 60 -38 C60 12, 44 48, 0 52 C-44 48, -60 12, -60 -38 Z" 
+          fill="#07090e" 
+          stroke="#242b3b" 
+          stroke-width="1.5"/>
+
+    <!-- Scanline effect across visor -->
+    <g class="animated-scan">
+      <line x1="-50" y1="0" x2="50" y2="0" stroke="rgba(0, 212, 255, 0.4)" stroke-width="1.5"/>
+    </g>
+
+    <!-- Eyes (Left & Right) -->
+    <g transform="translate(-26, -18)">
+      <circle cx="0" cy="0" r="16" fill="#05070a" stroke="#1e293b" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="11" fill="none" stroke="#00d4ff" stroke-width="1.2" opacity="0.8"/>
+      <circle cx="0" cy="0" r="6" fill="#00d4ff" class="animated-eye"/>
+      <circle cx="0" cy="0" r="2" fill="#ffffff"/>
+    </g>
+
+    <g transform="translate(26, -18)">
+      <circle cx="0" cy="0" r="16" fill="#05070a" stroke="#1e293b" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="11" fill="none" stroke="#00d4ff" stroke-width="1.2" opacity="0.8"/>
+      <circle cx="0" cy="0" r="6" fill="#00d4ff" class="animated-eye"/>
+      <circle cx="0" cy="0" r="2" fill="#ffffff"/>
+    </g>
+
+    <!-- Jaw Bar -->
+    <rect x="-20" y="28" width="40" height="3" rx="1.5" fill="#1e293b"/>
+    <rect x="-12" y="28" width="24" height="3" rx="1.5" fill="#00d4ff" opacity="0.8"/>
+  </g>
+
+  <!-- Bottom Telemetry Status Bar -->
+  <g transform="translate(30, 420)">
+    <!-- Status Card -->
+    <rect width="790" height="36" rx="8" fill="#0f131d" stroke="#1e2536" stroke-width="1"/>
+    
+    <circle cx="20" cy="18" r="4" fill="#10b981"/>
+    <text x="32" y="22" class="mono" font-size="11" font-weight="700" fill="#e2e8f0">STATE: IDLE / READY</text>
+
+    <text x="320" y="22" class="mono" font-size="11" fill="#94a3b8">MODEL: <tspan fill="#00d4ff">ollama:qwen2.5-coder:7b</tspan></text>
+    <text x="640" y="22" class="mono" font-size="11" fill="#94a3b8">LATENCY: <tspan fill="#34d399">0.0 ms (fast-path)</tspan></text>
+  </g>
+
+</svg>
