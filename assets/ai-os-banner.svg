@@ -1,0 +1,419 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420">
+  <defs>
+    <!-- ===================== GRADIENTS ===================== -->
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="75%">
+      <stop offset="0%" stop-color="#0c1a2e"/>
+      <stop offset="50%" stop-color="#060f1c"/>
+      <stop offset="100%" stop-color="#02060c"/>
+    </radialGradient>
+
+    <radialGradient id="sphereBody" cx="32%" cy="28%" r="70%">
+      <stop offset="0%" stop-color="#a5f3fc" stop-opacity="0.6"/>
+      <stop offset="25%" stop-color="#22d3ee" stop-opacity="0.32"/>
+      <stop offset="55%" stop-color="#0e7490" stop-opacity="0.2"/>
+      <stop offset="80%" stop-color="#083344" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#020617" stop-opacity="0.5"/>
+    </radialGradient>
+
+    <linearGradient id="sphereRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.85"/>
+      <stop offset="35%" stop-color="#22d3ee" stop-opacity="0.3"/>
+      <stop offset="70%" stop-color="#0891b2" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0.5"/>
+    </linearGradient>
+
+    <radialGradient id="coreEnergy" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ecfeff" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#67e8f9" stop-opacity="0.9"/>
+      <stop offset="70%" stop-color="#22d3ee" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="purpleCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f5d0fe" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#c084fc" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#a5f3fc"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- ===================== ADVANCED FILTERS ===================== -->
+
+    <!-- 1. Soft Glow (basic) -->
+    <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 2. Strong Bloom Glow -->
+    <filter id="strongGlow" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="24" result="blur3"/>
+      <feMerge>
+        <feMergeNode in="blur3"/>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 3. Tiny precise glow -->
+    <filter id="tinyGlow" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 4. Icon glow with slight color shift -->
+    <filter id="iconGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 1.1 0 0 0
+                0 0 1.2 0 0
+                0 0 0 0.9 0" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 5. Holographic Noise / Scanline interference -->
+    <filter id="holoNoise" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" seed="5" result="noise"/>
+      <feColorMatrix in="noise" type="matrix"
+        values="0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0.07 0" result="softNoise"/>
+      <feComposite in="softNoise" in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+    </filter>
+
+    <!-- 6. Chromatic Aberration style (RGB split glow) -->
+    <filter id="chromatic" x="-50%" y="-50%" width="200%" height="200%">
+      <!-- Red channel shifted left -->
+      <feOffset in="SourceGraphic" dx="-1.5" dy="0" result="redShift"/>
+      <feColorMatrix in="redShift" type="matrix"
+        values="1 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0.5 0" result="red"/>
+      <!-- Blue channel shifted right -->
+      <feOffset in="SourceGraphic" dx="1.5" dy="0" result="blueShift"/>
+      <feColorMatrix in="blueShift" type="matrix"
+        values="0 0 0 0 0
+                0 0 0 0 0
+                0 0 1 0 0
+                0 0 0 0.5 0" result="blue"/>
+      <!-- Cyan main -->
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="0.2 0 0 0 0
+                0 0.9 0 0 0
+                0 0 1 0 0
+                0 0 0 1 0" result="cyan"/>
+      <feMerge>
+        <feMergeNode in="red"/>
+        <feMergeNode in="blue"/>
+        <feMergeNode in="cyan"/>
+      </feMerge>
+    </filter>
+
+    <!-- 7. Specular Lighting for real 3D glass feel -->
+    <filter id="specular3D" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+      <feSpecularLighting in="blur" surfaceScale="6" specularConstant="1.1" specularExponent="18" lighting-color="#e0f2fe" result="specOut">
+        <fePointLight x="480" y="120" z="80"/>
+      </feSpecularLighting>
+      <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specIn"/>
+      <feComposite in="SourceGraphic" in2="specIn" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+    </filter>
+
+    <!-- 8. Combined Holographic Sphere filter (bloom + noise + specular) -->
+    <filter id="holoSphere" x="-80%" y="-80%" width="260%" height="260%">
+      <!-- Multi-layer bloom -->
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b2"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="b3"/>
+      
+      <!-- Soft noise overlay -->
+      <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" seed="12" result="noise"/>
+      <feColorMatrix in="noise" type="matrix"
+        values="0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0.04 0" result="softNoise"/>
+      
+      <!-- Specular highlight -->
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="specBlur"/>
+      <feSpecularLighting in="specBlur" surfaceScale="5" specularConstant="1.2" specularExponent="20" lighting-color="#a5f3fc" result="spec">
+        <fePointLight x="490" y="130" z="70"/>
+      </feSpecularLighting>
+      <feComposite in="spec" in2="SourceAlpha" operator="in" result="specMasked"/>
+
+      <!-- Merge everything -->
+      <feMerge>
+        <feMergeNode in="b3"/>
+        <feMergeNode in="b2"/>
+        <feMergeNode in="b1"/>
+        <feMergeNode in="softNoise"/>
+        <feMergeNode in="SourceGraphic"/>
+        <feMergeNode in="specMasked"/>
+      </feMerge>
+    </filter>
+
+    <!-- 9. Outer ring energy filter -->
+    <filter id="ringEnergy" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0.3 0 0 0 0
+                0 0.9 0 0 0
+                0 0 1.2 0 0
+                0 0 0 0.8 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 10. Drop shadow for depth under sphere -->
+    <filter id="groundShadow" x="-50%" y="-20%" width="200%" height="150%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="blur"/>
+      <feOffset dy="18" result="offsetBlur"/>
+      <feFlood flood-color="#22d3ee" flood-opacity="0.15"/>
+      <feComposite in2="offsetBlur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Orbit paths -->
+    <path id="orbit1" d="M600,200 m-195,0 a195,95 0 1,1 390,0 a195,95 0 1,1 -390,0" fill="none"/>
+    <path id="orbit2" d="M600,200 m-165,0 a165,110 0 1,0 330,0 a165,110 0 1,0 -330,0" fill="none"/>
+    <path id="orbit3" d="M600,200 m-220,0 a220,70 0 1,1 440,0 a220,70 0 1,1 -440,0" fill="none"/>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="420" fill="url(#bgGrad)"/>
+
+  <!-- Subtle tech grid -->
+  <g opacity="0.05" stroke="#22d3ee" stroke-width="0.5">
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="160" x2="1200" y2="160"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="320" x2="1200" y2="320"/>
+    <line x1="150" y1="0" x2="150" y2="420"/>
+    <line x1="300" y1="0" x2="300" y2="420"/>
+    <line x1="450" y1="0" x2="450" y2="420"/>
+    <line x1="600" y1="0" x2="600" y2="420"/>
+    <line x1="750" y1="0" x2="750" y2="420"/>
+    <line x1="900" y1="0" x2="900" y2="420"/>
+    <line x1="1050" y1="0" x2="1050" y2="420"/>
+  </g>
+
+  <!-- Ambient particles -->
+  <g fill="#67e8f9" filter="url(#tinyGlow)">
+    <circle cx="140" cy="70" r="1.5"><animate attributeName="opacity" values="0.15;0.8;0.15" dur="3.8s" repeatCount="indefinite"/></circle>
+    <circle cx="1060" cy="95" r="1.3"><animate attributeName="opacity" values="0.2;0.75;0.2" dur="4.2s" repeatCount="indefinite"/></circle>
+    <circle cx="220" cy="340" r="1.7"><animate attributeName="opacity" values="0.1;0.65;0.1" dur="5s" repeatCount="indefinite"/></circle>
+    <circle cx="980" cy="310" r="1.4"><animate attributeName="opacity" values="0.25;0.85;0.25" dur="3.5s" repeatCount="indefinite"/></circle>
+    <circle cx="80" cy="210" r="1.1"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.8s" repeatCount="indefinite"/></circle>
+    <circle cx="1120" cy="190" r="1.6"><animate attributeName="opacity" values="0.15;0.7;0.15" dur="4.5s" repeatCount="indefinite"/></circle>
+    <circle cx="350" cy="50" r="1.2"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.2s" repeatCount="indefinite"/></circle>
+    <circle cx="850" cy="380" r="1.5"><animate attributeName="opacity" values="0.1;0.6;0.1" dur="4.8s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ===== 3D ORBITAL RINGS ===== -->
+  <g filter="url(#ringEnergy)">
+    <ellipse cx="600" cy="200" rx="118" ry="28" fill="none" stroke="#22d3ee" stroke-width="1.8" opacity="0.4">
+      <animate attributeName="opacity" values="0.28;0.5;0.28" dur="4s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="600" cy="200" rx="105" ry="48" fill="none" stroke="#67e8f9" stroke-width="1.3" opacity="0.25" transform="rotate(-28 600 200)">
+      <animate attributeName="opacity" values="0.18;0.38;0.18" dur="5s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="600" cy="200" rx="98" ry="52" fill="none" stroke="#a78bfa" stroke-width="1.2" opacity="0.22" transform="rotate(35 600 200)">
+      <animate attributeName="opacity" values="0.14;0.35;0.14" dur="4.5s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="600" cy="200" rx="135" ry="38" fill="none" stroke="#22d3ee" stroke-width="0.9" opacity="0.14" stroke-dasharray="6 10">
+      <animate attributeName="stroke-dashoffset" values="0;32" dur="14s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="600" cy="200" rx="32" ry="95" fill="none" stroke="#67e8f9" stroke-width="1.1" opacity="0.2" transform="rotate(12 600 200)"/>
+  </g>
+
+  <!-- ===== CENTRAL HOLOGRAPHIC SPHERE (advanced filters) ===== -->
+  <g filter="url(#holoSphere)">
+    <!-- Outer aura -->
+    <circle cx="600" cy="200" r="110" fill="#22d3ee" opacity="0.07">
+      <animate attributeName="r" values="104;116;104" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.04;0.11;0.04" dur="5s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Dark volume base -->
+    <circle cx="600" cy="200" r="83" fill="#020617" opacity="0.75"/>
+
+    <!-- Main glass body -->
+    <circle cx="600" cy="200" r="80" fill="url(#sphereBody)" stroke="url(#sphereRim)" stroke-width="2.4"/>
+
+    <!-- Inner shells for depth -->
+    <circle cx="600" cy="200" r="63" fill="none" stroke="#67e8f9" stroke-width="1.1" opacity="0.28"/>
+    <circle cx="600" cy="200" r="49" fill="none" stroke="#22d3ee" stroke-width="0.9" opacity="0.22"/>
+
+    <!-- Energy core -->
+    <circle cx="600" cy="200" r="33" fill="url(#coreEnergy)" opacity="0.9">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="2.8s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="29;36;29" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Purple secondary core -->
+    <circle cx="600" cy="200" r="18" fill="url(#purpleCore)" opacity="0.65">
+      <animate attributeName="opacity" values="0.4;0.85;0.4" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Specular highlights -->
+    <ellipse cx="572" cy="168" rx="27" ry="15" fill="#e0f2fe" opacity="0.5" transform="rotate(-25 572 168)"/>
+    <ellipse cx="557" cy="186" rx="9" ry="5.5" fill="#ffffff" opacity="0.4"/>
+  </g>
+
+  <!-- Ground contact shadow -->
+  <ellipse cx="600" cy="275" rx="58" ry="11" fill="#22d3ee" opacity="0.1" filter="url(#softGlow)"/>
+
+  <!-- ===== NEURAL NETWORK ===== -->
+  <g stroke-linecap="round" filter="url(#tinyGlow)">
+    <line x1="560" y1="168" x2="600" y2="200" stroke="#67e8f9" stroke-width="1.4">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="2.4s" repeatCount="indefinite"/>
+    </line>
+    <line x1="640" y1="168" x2="600" y2="200" stroke="#a5f3fc" stroke-width="1.4">
+      <animate attributeName="opacity" values="0.35;1;0.35" dur="2.7s" repeatCount="indefinite"/>
+    </line>
+    <line x1="550" y1="230" x2="600" y2="200" stroke="#22d3ee" stroke-width="1.3">
+      <animate attributeName="opacity" values="0.25;0.9;0.25" dur="3s" repeatCount="indefinite"/>
+    </line>
+    <line x1="650" y1="230" x2="600" y2="200" stroke="#c4b5fd" stroke-width="1.3">
+      <animate attributeName="opacity" values="0.3;0.95;0.3" dur="2.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="560" y1="168" x2="550" y2="230" stroke="#67e8f9" stroke-width="1.1">
+      <animate attributeName="opacity" values="0.2;0.75;0.2" dur="3.4s" repeatCount="indefinite"/>
+    </line>
+    <line x1="640" y1="168" x2="650" y2="230" stroke="#a78bfa" stroke-width="1.1">
+      <animate attributeName="opacity" values="0.25;0.8;0.25" dur="2.9s" repeatCount="indefinite"/>
+    </line>
+    <line x1="560" y1="168" x2="640" y2="168" stroke="#22d3ee" stroke-width="1">
+      <animate attributeName="opacity" values="0.15;0.6;0.15" dur="3.8s" repeatCount="indefinite"/>
+    </line>
+    <line x1="550" y1="230" x2="650" y2="230" stroke="#67e8f9" stroke-width="1">
+      <animate attributeName="opacity" values="0.2;0.65;0.2" dur="3.2s" repeatCount="indefinite"/>
+    </line>
+    <line x1="560" y1="168" x2="650" y2="230" stroke="#67e8f9" stroke-width="0.8" opacity="0.45"/>
+    <line x1="640" y1="168" x2="550" y2="230" stroke="#a78bfa" stroke-width="0.8" opacity="0.4"/>
+  </g>
+
+  <!-- Neural nodes -->
+  <g filter="url(#tinyGlow)">
+    <circle cx="600" cy="200" r="6" fill="url(#nodeGlow)">
+      <animate attributeName="r" values="4.8;7.2;4.8" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="560" cy="168" r="4" fill="#a5f3fc">
+      <animate attributeName="opacity" values="0.55;1;0.55" dur="2.3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="640" cy="168" r="4" fill="#e9d5ff">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="2.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="550" cy="230" r="3.7" fill="#67e8f9">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="2.9s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="650" cy="230" r="3.7" fill="#c4b5fd">
+      <animate attributeName="opacity" values="0.45;1;0.45" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- ===== ORBITING ICONS ===== -->
+  <!-- Chrome -->
+  <g>
+    <animateMotion dur="20s" repeatCount="indefinite"><mpath href="#orbit1"/></animateMotion>
+    <circle r="17" fill="#0f172a" stroke="#22d3ee" stroke-width="1.6" filter="url(#iconGlow)"/>
+    <circle r="10" fill="none" stroke="#67e8f9" stroke-width="2.2"/>
+    <circle r="3.5" fill="#22d3ee"/>
+    <text y="30" text-anchor="middle" fill="#67e8f9" font-size="8.5" font-family="system-ui,sans-serif" opacity="0.85">Chrome</text>
+  </g>
+
+  <!-- VS Code -->
+  <g>
+    <animateMotion dur="20s" repeatCount="indefinite" begin="-3.3s"><mpath href="#orbit1"/></animateMotion>
+    <circle r="17" fill="#0f172a" stroke="#a78bfa" stroke-width="1.6" filter="url(#iconGlow)"/>
+    <rect x="-6.5" y="-6.5" width="13" height="13" rx="1.8" fill="none" stroke="#c4b5fd" stroke-width="1.8"/>
+    <path d="M-3.5,-1.5 L0,4 L3.5,-1.5" fill="none" stroke="#c4b5fd" stroke-width="1.6" stroke-linecap="round"/>
+    <text y="30" text-anchor="middle" fill="#c4b5fd" font-size="8.5" font-family="system-ui,sans-serif" opacity="0.85">VS Code</text>
+  </g>
+
+  <!-- Telegram -->
+  <g>
+    <animateMotion dur="20s" repeatCount="indefinite" begin="-6.6s"><mpath href="#orbit1"/></animateMotion>
+    <circle r="17" fill="#0f172a" stroke="#38bdf8" stroke-width="1.6" filter="url(#iconGlow)"/>
+    <path d="M-5.5,1.5 L5.5,-3.5 L1.5,5.5 L-0.5,1.5 Z" fill="#38bdf8"/>
+    <text y="30" text-anchor="middle" fill="#38bdf8" font-size="8.5" font-family="system-ui,sans-serif" opacity="0.85">Telegram</text>
+  </g>
+
+  <!-- Explorer -->
+  <g>
+    <animateMotion dur="22s" repeatCount="indefinite" begin="-2s"><mpath href="#orbit2"/></animateMotion>
+    <circle r="16" fill="#0f172a" stroke="#67e8f9" stroke-width="1.5" filter="url(#iconGlow)"/>
+    <rect x="-7" y="-4.5" width="14" height="10" rx="1.2" fill="none" stroke="#67e8f9" stroke-width="1.6"/>
+    <path d="M-7,-4.5 L-3.5,-8 L3.5,-8 L7,-4.5" fill="none" stroke="#67e8f9" stroke-width="1.6"/>
+    <text y="29" text-anchor="middle" fill="#67e8f9" font-size="8" font-family="system-ui,sans-serif" opacity="0.85">Explorer</text>
+  </g>
+
+  <!-- CPU -->
+  <g>
+    <animateMotion dur="22s" repeatCount="indefinite" begin="-8s"><mpath href="#orbit2"/></animateMotion>
+    <circle r="16" fill="#0f172a" stroke="#f472b6" stroke-width="1.5" filter="url(#iconGlow)"/>
+    <rect x="-6" y="-6" width="12" height="12" rx="1.5" fill="none" stroke="#f9a8d4" stroke-width="1.5"/>
+    <rect x="-3" y="-3" width="6" height="6" rx="0.8" fill="#f472b6" opacity="0.7"/>
+    <line x1="-8" y1="-2" x2="-6" y2="-2" stroke="#f9a8d4" stroke-width="1.2"/>
+    <line x1="-8" y1="2" x2="-6" y2="2" stroke="#f9a8d4" stroke-width="1.2"/>
+    <line x1="6" y1="-2" x2="8" y2="-2" stroke="#f9a8d4" stroke-width="1.2"/>
+    <line x1="6" y1="2" x2="8" y2="2" stroke="#f9a8d4" stroke-width="1.2"/>
+    <text y="29" text-anchor="middle" fill="#f9a8d4" font-size="8" font-family="system-ui,sans-serif" opacity="0.85">CPU</text>
+  </g>
+
+  <!-- RAM -->
+  <g>
+    <animateMotion dur="18s" repeatCount="indefinite" begin="-4s"><mpath href="#orbit3"/></animateMotion>
+    <circle r="15" fill="#0f172a" stroke="#34d399" stroke-width="1.5" filter="url(#iconGlow)"/>
+    <rect x="-8" y="-4" width="16" height="8" rx="1" fill="none" stroke="#6ee7b7" stroke-width="1.4"/>
+    <line x1="-5" y1="-4" x2="-5" y2="4" stroke="#6ee7b7" stroke-width="1"/>
+    <line x1="-1" y1="-4" x2="-1" y2="4" stroke="#6ee7b7" stroke-width="1"/>
+    <line x1="3" y1="-4" x2="3" y2="4" stroke="#6ee7b7" stroke-width="1"/>
+    <line x1="7" y1="-4" x2="7" y2="4" stroke="#6ee7b7" stroke-width="1"/>
+    <text y="28" text-anchor="middle" fill="#6ee7b7" font-size="8" font-family="system-ui,sans-serif" opacity="0.85">RAM</text>
+  </g>
+
+  <!-- Terminal -->
+  <g>
+    <animateMotion dur="18s" repeatCount="indefinite" begin="-10s"><mpath href="#orbit3"/></animateMotion>
+    <circle r="15" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5" filter="url(#iconGlow)"/>
+    <rect x="-7.5" y="-5.5" width="15" height="11" rx="1.5" fill="none" stroke="#fcd34d" stroke-width="1.4"/>
+    <text x="-4" y="2" fill="#fcd34d" font-size="9" font-family="monospace" font-weight="bold">&gt;_</text>
+    <text y="28" text-anchor="middle" fill="#fcd34d" font-size="8" font-family="system-ui,sans-serif" opacity="0.85">Terminal</text>
+  </g>
+
+  <!-- ===== TITLE ===== -->
+  <text x="600" y="372" text-anchor="middle" fill="#e0f2fe" font-size="23" font-family="system-ui, -apple-system, sans-serif" font-weight="600" letter-spacing="1.8" opacity="0.95" filter="url(#tinyGlow)">
+    AI-Driven Intelligent OS
+  </text>
+  <text x="600" y="396" text-anchor="middle" fill="#67e8f9" font-size="12.5" font-family="system-ui, -apple-system, sans-serif" opacity="0.7" letter-spacing="3.5">
+    HOLOGRAPHIC COMMAND CORE
+  </text>
+
+  <line x1="300" y1="382" x2="410" y2="382" stroke="#22d3ee" stroke-width="1" opacity="0.35"/>
+  <line x1="790" y1="382" x2="900" y2="382" stroke="#22d3ee" stroke-width="1" opacity="0.35"/>
+</svg>
